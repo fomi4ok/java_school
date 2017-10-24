@@ -2,17 +2,16 @@ package ru.stqa.school.sandbox;
 
 public class Point {
 
-  public double p1;
-  public double p2;
+  public double x, y;
 
-  public Point (double p1, double p2){
-    this.p1 = p1;
-    this.p2 = p2;
+  public Point (double x, double y){
+    this.x = x;
+    this.y = y;
   }
 
-  public double distance()
+  public double distance(Point p2)
   {
-    return Math.sqrt((this.p1 * this.p1) + (this.p2 * this.p2));
+    return Math.sqrt(Math.pow(this.x - p2.x, 2)+  Math.pow(this.y - p2.y, 2));
 
   }
 }
