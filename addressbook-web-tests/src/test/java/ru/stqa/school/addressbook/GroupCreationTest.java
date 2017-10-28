@@ -33,7 +33,7 @@ public class GroupCreationTest {
 
     @Test
     public void testGroupCreation() {
-
+        goToGroupCreation();
         initGroupCreation();
         fillGroupForm(new GroupData("test1", "tes2", "test3"));
         submitGroupCreation();
@@ -49,7 +49,7 @@ public class GroupCreationTest {
     }
 
     private void fillGroupForm(GroupData groupData) {
-        wd.findElement(By.name("new")).click();
+
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
         wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
@@ -61,7 +61,11 @@ public class GroupCreationTest {
         wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
-    private void initGroupCreation() {
+  private void initGroupCreation() {
+    wd.findElement(By.name("new")).click();
+  }
+
+  private void goToGroupCreation() {
         wd.findElement(By.linkText("groups")).click();
     }
 
