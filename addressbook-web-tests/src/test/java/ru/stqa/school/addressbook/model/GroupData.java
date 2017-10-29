@@ -1,4 +1,4 @@
-package ru.stqa.school.addressbook;
+package ru.stqa.school.addressbook.model;
 
 public class GroupData {
   private final String name;

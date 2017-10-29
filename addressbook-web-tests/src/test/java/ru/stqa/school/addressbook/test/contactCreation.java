@@ -1,4 +1,4 @@
-package ru.stqa.school.addressbook;
+package ru.stqa.school.addressbook.test;
 
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;
@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
+import ru.stqa.school.addressbook.model.ContactData;
 
 public class contactCreation {
   FirefoxDriver wd;
