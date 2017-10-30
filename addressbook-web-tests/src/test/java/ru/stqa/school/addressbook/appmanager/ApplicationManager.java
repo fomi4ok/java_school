@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import ru.stqa.school.addressbook.model.ContactData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,9 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private  NavigationHelper navigationHelper;
   private  GroupHelper groupHelper;
+  private ContactHelper contactHelper;
+
+
 
   public static boolean isAlertPresent(FirefoxDriver wd) {
       try {
@@ -31,6 +35,7 @@ public class ApplicationManager {
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     sessionHelper.login("admin", "secret");
+    contactHelper  = new ContactHelper(wd);
   }
 
 
@@ -46,4 +51,10 @@ public class ApplicationManager {
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
   }
+
+  public ContactHelper getContactHelper() {
+    return contactHelper;
+  }
+
+
 }
