@@ -3,7 +3,7 @@ package ru.stqa.school.addressbook.test;
 import org.testng.annotations.Test;
 import ru.stqa.school.addressbook.model.ContactData;
 
-public class contactCreation extends TestBase {
+public class ContactCreationTest extends TestBase {
 
 
   @Test
