@@ -22,9 +22,13 @@ public class HelperBase {
   protected void type(By locator, String text) {
     click(locator);
     if (text != null) {
+      String exitingText = wd.findElement(locator).getAttribute("value");
+      if (! text.equals(exitingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
 
-      wd.findElement(locator).clear();
-      wd.findElement(locator).sendKeys(text);
+      }
+
     }
   }
 
