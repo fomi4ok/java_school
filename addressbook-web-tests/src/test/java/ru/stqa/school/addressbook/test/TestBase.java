@@ -9,7 +9,7 @@ import ru.stqa.school.addressbook.appmanager.ApplicationManager;
 public class TestBase {
 
 
-  protected final ApplicationManager app = new ApplicationManager(BrowserType.SAFARI);
+  protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
 
 
