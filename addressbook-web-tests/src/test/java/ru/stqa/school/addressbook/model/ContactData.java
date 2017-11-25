@@ -1,5 +1,7 @@
 package ru.stqa.school.addressbook.model;
 
+import java.sql.Struct;
+
 public class ContactData {
   private int id = Integer.MAX_VALUE;
   private  String firstname;
@@ -10,6 +12,7 @@ public class ContactData {
   private String mobilePhone;
   private String workPhone;
   private String allPhones;
+  private String address;
 
   public String getAllPhones() {
     return allPhones;
@@ -73,6 +76,11 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
 
   public String getFirstname() {
     return firstname;
@@ -91,6 +99,8 @@ public class ContactData {
   }
 
   public String getGroup() { return group; }
+
+  public String getAddress() {return address;}
 
 
   public int getId() {

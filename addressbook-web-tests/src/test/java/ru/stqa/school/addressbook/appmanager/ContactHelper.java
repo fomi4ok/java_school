@@ -116,10 +116,11 @@ public class ContactHelper extends HelperBase{
     for (WebElement element : elements) {
       String firstname = element.findElements(By.tagName("td")).get(2).getText();
       String lastname = element.findElements(By.tagName("td")).get(1).getText();
+      String address = element.findElements(By.tagName("td")).get(3).getText();
       String allPhones = element.findElements(By.tagName("td")).get(5).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       ContactData contact = new ContactData().withId(id).withFirstname(firstname).
-              withLastname(lastname).withAllPhones(allPhones);
+              withLastname(lastname).withAddress(address).withAllPhones(allPhones);
       contactCache.add(contact);
 
     }
@@ -137,8 +138,9 @@ public class ContactHelper extends HelperBase{
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
     String work = wd.findElement(By.name("work")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
     wd.navigate().back();
-    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withHomephone(home).withMobilePhone(mobile).withWorkPhone(work);
+    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withAddress(address).withHomephone(home).withMobilePhone(mobile).withWorkPhone(work);
 
 
   }
