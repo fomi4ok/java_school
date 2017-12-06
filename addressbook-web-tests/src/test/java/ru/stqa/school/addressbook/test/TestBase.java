@@ -38,15 +38,11 @@ public class TestBase {
   public void logTestStart(Method m, Object[] p) {
    logger.info("start test" + m.getName() + "with parameters" + Arrays.asList(p));
 
-
-
  }
 
  @AfterMethod (alwaysRun = true)
   public void logTestStop(Method m) {
    logger.info("stop test" + m.getName());
-
-
 
  }
 
