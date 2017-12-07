@@ -9,6 +9,8 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.school.addressbook.appmanager.ApplicationManager;
+import ru.stqa.school.addressbook.model.ContactData;
+import ru.stqa.school.addressbook.model.Contacts;
 import ru.stqa.school.addressbook.model.GroupData;
 import ru.stqa.school.addressbook.model.Groups;
 
@@ -29,35 +31,47 @@ public class TestBase {
           = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
 
-
   @BeforeSuite
   public void setUp() throws Exception {
     app.init();
   }
 
-  @AfterSuite (alwaysRun = true)
+  @AfterSuite(alwaysRun = true)
   public void tearDown() {
     app.stop();
   }
 
 
- @BeforeMethod
+  @BeforeMethod
   public void logTestStart(Method m, Object[] p) {
-   logger.info("start test" + m.getName() + "with parameters" + Arrays.asList(p));
+    logger.info("start test" + m.getName() + "with parameters" + Arrays.asList(p));
 
- }
-
- @AfterMethod (alwaysRun = true)
-  public void logTestStop(Method m) {
-   logger.info("stop test" + m.getName());
-
- }
-  public void verifyGroupListinUI() {
-    if (Boolean.getBoolean("verifyUI")) {
-    Groups dbGroups = app.db().groups();
-    Groups uiGroups = app.group().all();
-    assertThat(uiGroups, equalTo(dbGroups.stream()
-            .map((g) -> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
   }
 
-}}
+  @AfterMethod(alwaysRun = true)
+  public void logTestStop(Method m) {
+    logger.info("stop test" + m.getName());
+
+  }
+
+  public void verifyGroupListinUI() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      assertThat(uiGroups, equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
+    }}
+
+  public void verifyContactListInUI() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Contacts dbContact = app.db().contacts();
+      Contacts uiContacts = app.contact().all();
+      assertThat(uiContacts, equalTo(dbContact.stream()
+              .map((c) -> new ContactData().withId(c.getId()).withLastname(c.getLastname()).withFirstname(c.getFirstname())
+                      .withAddress(c.getAddress()).withAllEmails(c.getAllEmails()).withAllPhones(c.getAllPhones()))
+              .collect(Collectors.toSet())));
+    }
+
+
+  }
+}
