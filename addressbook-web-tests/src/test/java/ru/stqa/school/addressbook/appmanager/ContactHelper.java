@@ -101,6 +101,40 @@ public class ContactHelper extends HelperBase{
     contactCache = null;
   }
 
+  public void submitAddToGroup(){
+    click(By.name("add"));
+  }
+
+  public void addContactToTheGroup(ContactData contact, String name){
+    selectContactById(contact.getId());
+    selectGroupByName(name);
+    submitAddToGroup();
+
+  }
+
+  private void selectGroupByName(String group_name) {
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText("" + group_name);
+  }
+
+  public void removeContactFromTheGroup(ContactData contact, String nameall){
+    selectGroupByNameAll(nameall);
+    selectContactById(contact.getId());
+    removeContact();
+
+  }
+
+  private void removeContact() {
+    click(By.name("remove"));
+
+  }
+
+  public void selectGroupByNameAll(String nameall){
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("" + nameall);
+
+  }
+
+
+
   public boolean isThereAContact() {
 
     return isElementPresent(By.name("selected[]"));

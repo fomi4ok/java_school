@@ -45,4 +45,21 @@ public class Contacts extends ForwardingSet<ContactData> {
 
 
   }
+
+  public Contacts withGroup(GroupData group, ContactData contact) {
+
+    Contacts contacts = group.getContacts();
+    contacts.add(contact);
+    return contacts;
+
+  }
+
+  public Contacts withoutGroup(GroupData group, ContactData contact) {
+
+    Contacts contacts = group.getContacts();
+    contacts.remove(contact);
+    return contacts;
+
+  }
+
 }

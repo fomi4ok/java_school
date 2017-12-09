@@ -5,6 +5,8 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -29,8 +31,6 @@ public class ContactData {
   @Type(type = "text")
   private  String email;
 
-  @Transient
-  private String group;
 
   @Column(name = "mobile")
   @Type(type = "text")
@@ -57,6 +57,12 @@ public class ContactData {
 
   @Transient
   private String allEmails;
+
+
+  @ManyToMany (fetch = FetchType.EAGER)
+  @JoinTable (name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+                   inverseJoinColumns = @JoinColumn (name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
 
   public String getAllPhones() {
@@ -89,7 +95,6 @@ public class ContactData {
   public ContactData withWorkPhone(String workPhone) {
     this.workPhone = workPhone;
     return this;
-
   }
 
   public String getMobilePhone() {
@@ -103,6 +108,10 @@ public class ContactData {
   public ContactData withId(int id) {
     this.id = id;
     return this;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public ContactData withFirstname(String firstname) {
@@ -133,11 +142,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public ContactData withAddress(String address) {
     this.address = address;
     return this;
@@ -161,9 +165,8 @@ public class ContactData {
     return email;
   }
 
-  public String getGroup() { return group; }
+  public String getAddress() { return address; }
 
-  public String getAddress() {return address;}
   public String getEmail3() {
     return email3;
   }
