@@ -6,6 +6,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.remote.SessionId;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -34,12 +36,11 @@ public class ApplicationManager {
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
 
-
-    if (Objects.equals(browser, BrowserType.FIREFOX)){
+    if (Objects.equals(browser, BrowserType.FIREFOX)) {
       wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
-    } else if (Objects.equals(browser, BrowserType.CHROME)){
+    } else if (Objects.equals(browser, BrowserType.CHROME)) {
       wd = new ChromeDriver();
-    } else if (Objects.equals(browser, BrowserType.SAFARI)){
+    } else if (Objects.equals(browser, BrowserType.SAFARI)) {
       wd = new SafariDriver();
     }
 
@@ -49,10 +50,15 @@ public class ApplicationManager {
   }
 
 
-
   public void stop() {
-     wd.quit();
+    wd.quit();
   }
 
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
 
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
 }
