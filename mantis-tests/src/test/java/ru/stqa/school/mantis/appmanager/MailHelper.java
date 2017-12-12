@@ -22,10 +22,11 @@ public class MailHelper {
   }
 
 
-  public List<MailMessage> waitForMail (int count, long timeout) throws MessagingException, IOException {
+  public List<MailMessage> waitForMail(int count, long timeout) throws MessagingException, IOException {
 
     long start =  System.currentTimeMillis();
     while (System.currentTimeMillis() < start + timeout) {
+      System.out.println(wiser.getMessages());
       if (wiser.getMessages().size() >= count) {
         return wiser.getMessages().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
       }
@@ -55,11 +56,13 @@ public class MailHelper {
   }
 
   public void start() {
-    wiser.setPort(1025);
+    wiser.setPort(1027);
+    System.out.println("start mail server");
     wiser.start();
   }
 
   public void stop() {
+    System.out.println("stop mail server");
     wiser.stop();
   }
 }

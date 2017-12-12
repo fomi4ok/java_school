@@ -15,9 +15,7 @@ import static org.testng.Assert.assertTrue;
 public class RegistrationTests extends TestBase {
 
   @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
-  }
+  public void startMailServer() { app.mail().start(); }
 
   @Test
   public void testRegistration() throws IOException, MessagingException {
@@ -35,7 +33,7 @@ public class RegistrationTests extends TestBase {
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findAny().get();
+    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
 
