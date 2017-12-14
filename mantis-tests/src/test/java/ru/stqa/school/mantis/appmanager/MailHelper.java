@@ -56,12 +56,13 @@ public class MailHelper {
   }
 
   public void start() {
-    wiser.setPort(1027);
+    wiser.setPort(1031);
     System.out.println("start mail server");
     wiser.start();
   }
 
   public void stop() {
+    wiser.setPort(1031);
     System.out.println("stop mail server");
     wiser.stop();
   }

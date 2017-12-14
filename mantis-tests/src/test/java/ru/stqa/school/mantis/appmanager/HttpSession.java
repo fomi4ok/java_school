@@ -50,6 +50,6 @@ public class HttpSession {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpClient.execute(get);
     String body = getTextFrom(response);
-    return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
+    return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
   }
 }
