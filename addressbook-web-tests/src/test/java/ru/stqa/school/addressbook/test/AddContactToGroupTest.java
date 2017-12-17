@@ -16,15 +16,14 @@ public class AddContactToGroupTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditionsForContacts() {
-
-    if (app.db().contactByName("'first name 0'").isEmpty()) {
+    if (app.db().contacts().isEmpty()) {
       app.goTo().homePage();
       app.contact().create(new ContactData()
               .withLastname("first name 0").withFirstname("first name 0").withAddress("123 abc").withHomephone("332-456-2809").withMobilePhone("332-456-2809")
               .withWorkPhone("349-383-38")
               .withEmail("test1@email.com").withEmail2("test2@email.com").withEmail3("test3@email.com"));
     }
-    if (app.db().groupByName("'test1'").isEmpty()) {
+    if (app.db().groups().isEmpty()) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
     }
@@ -32,24 +31,29 @@ public class AddContactToGroupTest extends TestBase {
 
   @Test
   public void testAddContactToGroup() {
-    // select first match of a group by name
-    Groups groups = app.db().groupByName("'test1'");
-    GroupData selectedGroup = groups.iterator().next();
-    // get the contacts for this group
-    Contacts before = selectedGroup.getContacts();
+    ContactData selectedContact = app.db().contacts().iterator().next();
+    Groups before = selectedContact.getGroups();
+    GroupData selectedGroup;
+    Groups notAddedGroups = app.db().groups();
+    notAddedGroups.removeAll(before);
+
+    if (notAddedGroups.isEmpty()) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+      Groups notAddedGroups2 = app.db().groups();
+      notAddedGroups2.removeAll(before);
+      selectedGroup = notAddedGroups2.iterator().next();
+    }
+    else {
+      selectedGroup = notAddedGroups.iterator().next();
+    }
 
     app.goTo().homePage();
-    // select first match of a contact by name
-    Contacts contacts = app.db().contactByName("'first name 0'");
-    ContactData selectedContact = contacts.iterator().next();
-    app.contact().addContactToTheGroup(selectedContact, selectedGroup.getName());
+    app.contact().addContactToTheGroup(selectedContact, selectedGroup);
     // select the same group as before by id
-    Groups after_groups = app.db().groupById(selectedGroup.getId());
-    GroupData after_group = after_groups.iterator().next();
-    // get the contacts for this group after contact addition
-    Contacts after = after_group.getContacts();
+    Groups after = app.db().contactById(selectedContact.getId()).iterator().next().getGroups();
 
     // compare
-    assertThat(after, equalTo(before.withGroup(selectedGroup, selectedContact)));
+    assertThat(after, equalTo(before.withContact(selectedGroup, selectedContact)));
   }
 }
