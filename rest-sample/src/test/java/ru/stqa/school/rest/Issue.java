@@ -4,6 +4,7 @@ public class Issue {
   private int id;
   private String subject;
   private String description;
+  private String state_name;
 
   public int getId() {
     return id;
@@ -53,4 +54,7 @@ public class Issue {
     return this;
   }
 
+  public String getStatus() {
+    return state_name;
+  }
 }
