@@ -10,6 +10,8 @@
             <class name="ru.stqa.school.addressbook.test.ContactDeletionTests"/>
             <class name="ru.stqa.school.addressbook.test.ContactEmailTest"/>
             <class name="ru.stqa.school.addressbook.test.ContactPhoneTests"/>
+            <class name="ru.stqa.school.addressbook.test.AddContactToGroupTest"/>
+            <class name="ru.stqa.school.addressbook.test.RemoveContactFromGroup"/>
             </classes>
     </test>
 </suite>
